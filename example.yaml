@@ -1,0 +1,97 @@
+openapi: 3.0.2
+info:
+  title: TODO
+  description: >-
+  version: "1.0.0"
+servers:
+  - url: "https://api.taskmanager.info/"
+security:
+  - app_id: [ ]
+paths:
+  /api/v1/todos:
+    post:
+      summary: Create a new todo
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TodoCreate'
+      responses:
+        '201':
+          description: Success created todo
+          content:
+            application/json/:
+              schema:
+                $ref: '#/components/schemas/Todo'
+    get:
+      summary: get all todos
+      responses:
+        '200':
+          description: list with all todos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Todo'
+  /api/v1/todos/{id}:
+    put:
+      summary: update todo
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TodoUpdate'
+      responses:
+        '200':
+          description: success updated
+    delete:
+      summary: delete todo
+
+      responses:
+        '200':
+          description: success deleted
+components:
+  securitySchemes:
+    app_id:
+      type: apiKey
+      description: API key to authorize requests. If you don't have an OpenWeatherMap API key, use `fd4698c940c6d1da602a70ac34f0b147`.
+      name: appid
+      in: query
+  schemas:
+    Todo:
+      type: object
+      properties:
+        id:
+          type: string
+          example: "1234"
+        title:
+          type: string
+        completed:
+          type: boolean
+      required:
+        - id
+        - title
+        - completed
+    TodoCreate:
+      type: object
+      properties:
+        id:
+          type: string
+          example: "1234"
+        title:
+          type: string
+        completed:
+          type: boolean
+      required:
+        - title
+        - completed
+    TodoUpdate:
+      type: object
+      properties:
+        title:
+          type: string
+        completed:
+          type: boolean
