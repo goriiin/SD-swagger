@@ -4,6 +4,6 @@ info:
   description: черновик.
   version: 1.0.0
 servers:
-  - url: 'https/localhost:8000'
+  - url: 'https'
 paths:
   
